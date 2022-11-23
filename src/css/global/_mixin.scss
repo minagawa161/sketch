@@ -1,0 +1,74 @@
+@use "sass:math";
+@use "variable" as *;
+@use "function" as *;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-bt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// https://ics.media/entry/200317/ に游ゴシックを追加
+// https://blog.yoshinonaco.com/font-family-2020/#toc22
+@mixin default-font {
+  font-family: "Helvetica Neue", Arial, "游ゴシック体", YuGothic,
+  "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic",
+  "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+// 游ゴシック体でboldを使いたいときはこちらを使用してください
+@mixin default-font-bold {
+  font-family: "Helvetica Neue", Arial, "游ゴシック体", YuGothic, "游ゴシック",
+  "Yu Gothic", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo,
+  sans-serif;
+  font-weight: bold;
+}
+
+// https://yuyakinoshita.com/blog/2020/01/20/line-height-crop/
+@mixin line-height-crop($line-height, $isUsed: false) {
+  &::before {
+    margin-top: calc((1 - #{$line-height}) * 0.5em);
+    @if ($isUsed == false) {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+    }
+  }
+  &::after {
+    margin-bottom: calc((1 - #{$line-height}) * 0.5em);
+    @if ($isUsed == false) {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+    }
+  }
+}
+
+@mixin mq($breakpoint: $medium) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin dp($ratio) {
+  @media (-webkit-min-device-pixel-ratio: $ratio), (min-resolution: #{$ratio}dppx) {
+    @content;
+  }
+}
+
+// https://zenn.dev/tak_dcxi/articles/2cc1828e9c1fe2#hover%E3%81%AE%E6%8C%87%E5%AE%9A
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    // TSのモジュールはES Modulesとして出力
+    "module": "ES2015",
+    // node_modules からライブラリを読み込む
+    "moduleResolution": "node",
+    // 厳密モード
+    "strict": true, // ソースマップを有効化
+    "sourceMap": true,
+    "lib": ["ES2020", "DOM"]
+  }
+}

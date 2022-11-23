@@ -1,0 +1,65 @@
+@use "sass:math";
+@use "variable" as *;
+
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return math.div($number, ($number * 0 + 1));
+  }
+  @return $number;
+}
+
+@function vw($number, $width: $medium) {
+  @return calc(
+  var(--vw, 1vw) * #{strip-unit($number)} / #{strip-unit($width)} * 100
+  );
+}
+
+@function vmax($number, $width: $medium) {
+  @return calc(
+  max(var(--vw, 1vw), var(--svh, 1vh)) * #{strip-unit($number)} / #{strip-unit(
+  $width
+  )} * 100
+  );
+}
+
+@function vmin($number, $width: $medium) {
+  @return calc(
+  min(var(--vw, 1vw), var(--svh, 1vh)) * #{strip-unit($number)} / #{strip-unit(
+  $width
+  )} * 100
+  );
+}
+
+@function fluid-size($min-size, $max-size, $min-vw, $max-vw) {
+  @if ($max-size > $min-size) {
+    @return clamp(
+    $min-size,
+    calc(
+    #{$min-size} + #{strip-unit($max-size - $min-size)} *
+    (var(--vw, 1vw) * 100 - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}
+    ),
+    $max-size
+    );
+  } @else {
+    @return clamp(
+    $max-size,
+    calc(
+    #{$min-size} + #{strip-unit($max-size - $min-size)} *
+    (var(--vw, 1vw) * 100 - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}
+    ),
+    $min-size
+    );
+  }
+}
+
+// remやemを想定
+@function fluid-font-size($min-size, $max-size, $min-vw, $max-vw) {
+  @return clamp(
+  $min-size,
+  calc(
+  #{$min-size} + #{strip-unit($max-size - $min-size) * 10} *
+  (var(--vw, 1vw) * 100 - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}
+  ),
+  $max-size
+  );
+}

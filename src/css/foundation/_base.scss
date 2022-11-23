@@ -1,0 +1,70 @@
+@use "sass:math";
+@use "global" as *;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  min-height: 100vh;
+  font-size: 62.5%;
+}
+
+body {
+  @include default-font;
+
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  color: #000;
+  word-wrap: break-word;
+  /* フォントレンダリング設定: 1x解像度ではsubpixel、2x以上の解像度ではgrayscale */
+
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: unset;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+input, button, select, textarea {
+  outline: none;
+  background: transparent;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font: inherit;
+  color: currentColor;
+  text-align: left;
+
+  appearance: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  display: none;
+}
+
+input[type="submit"], input[type="button"], label, button, select {
+  cursor: pointer;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+img, video {
+  display: block;
+  width: 100%;
+}
+
+svg {
+  overflow: visible;
+}

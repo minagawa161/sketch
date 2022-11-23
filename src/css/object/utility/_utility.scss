@@ -1,0 +1,70 @@
+@use "global" as *;
+
+.scroll-locked {
+  position: fixed;
+  left: 0;
+  overflow-y: scroll;
+}
+
+.br {
+  &::before {
+    content: "\A";
+    white-space: pre;
+  }
+  &--sp {
+    @include mq {
+      &::before {
+        content: "";
+        white-space: normal;
+      }
+    }
+  }
+  &--md {
+    &::before {
+      content: "";
+      white-space: normal;
+
+      @include mq {
+        content: "\A";
+        white-space: pre;
+      }
+    }
+  }
+  &--main {
+    &::before {
+      content: "";
+      white-space: normal;
+
+      @include mq($breakpoint: main) {
+        content: "\A";
+        white-space: pre;
+      }
+    }
+  }
+  &--large {
+    &::before {
+      content: "";
+      white-space: normal;
+
+      @include mq($breakpoint: large) {
+        content: "\A";
+        white-space: pre;
+      }
+    }
+  }
+  &--xlarge {
+    &::before {
+      content: "";
+      white-space: normal;
+
+      @include mq($breakpoint: xlarge) {
+        content: "\A";
+        white-space: pre;
+      }
+    }
+  }
+}
+
+.inline-block {
+  display: inline-block;
+}

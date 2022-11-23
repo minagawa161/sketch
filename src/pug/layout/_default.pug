@@ -1,0 +1,18 @@
+include /pug/_index
+
+block variables
+doctype html
+
+html(lang="ja")
+  head
+    //- include /pug/layout/_ga
+    include /pug/layout/_meta
+    include /pug/layout/_stylesheet
+    include /pug/layout/_script
+  body
+    +header
+    .container
+      .container__inner
+        main.container__main
+          block content
+        +footer.container__footer

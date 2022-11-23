@@ -1,0 +1,35 @@
+// pug
+
+// picture.bg
+//   +source(`${relativePath}img/_md@2x.jpg`)(media=`(min-width: ${xlarge})`)
+//   +source(`${relativePath}img/_md.jpg`, `${relativePath}img/_md@2x.jpg`)(media=`(min-width: ${medium})`)
+//   +img(`${relativePath}img/.jpg`, ``).bg__img
+
+// scss
+
+// .bg--contain {
+//   .bg__img {
+//     object-fit: contain;
+//   }
+// }
+// .bg--left-center {
+//   .bg__img {
+//     object-position: left center;
+//   }
+// }
+// .bg--md-left-center {
+//   .bg__img {
+//     @include mq {
+//       object-position: left center;
+//     }
+//   }
+// }
+.bg__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: -100;
+
+  object-fit: cover;
+}
