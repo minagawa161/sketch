@@ -20,9 +20,18 @@ const setup = () => {
     nowTime
   } = utility;
 
-  let xScale = 1.0;
-  let yScale = 1.0;
-  let zScale = 1.0;
+  let u_red_x = .9;
+  let u_red_y = 1.0;
+  let u_red_time = .2;
+  let u_red_static = .0;
+  let u_green_x = .5;
+  let u_green_y = .6;
+  let u_green_time = .25;
+  let u_green_static = 75.0;
+  let u_blue_x = .7;
+  let u_blue_y = .8;
+  let u_blue_time = .3;
+  let u_blue_static = .0;
 
   const pane = new Pane();
 
@@ -41,13 +50,32 @@ const setup = () => {
 
     const paneAddInputs= ()=>{
       const PARAMS = {
-        xScale,
-        yScale,
-        zScale,
+        u_red_x,
+        u_red_y,
+        u_red_time,
+        u_red_static,
+        u_green_x,
+        u_green_y,
+        u_green_time,
+        u_green_static,
+        u_blue_x,
+        u_blue_y,
+        u_blue_time,
+        u_blue_static,
       }
-      pane.addInput(PARAMS, "xScale", { min: 0.0, max: 1.0}).on("change", ({value})=> {xScale = value;});
-      pane.addInput(PARAMS, "yScale", { min: 0.0, max: 1.0}).on("change", ({value})=> {yScale = value;});
-      pane.addInput(PARAMS, "zScale", { min: 0.0, max: 1.0}).on("change", ({value})=> {zScale = value;});
+
+      pane.addInput(PARAMS, "u_red_x", { min: 0.0, max: 1.0 }).on("change", ({ value }) => { u_red_x = value; });
+      pane.addInput(PARAMS, "u_red_y", { min: 0.0, max: 1.0 }).on("change", ({ value }) => { u_red_y = value; });
+      pane.addInput(PARAMS, "u_red_time", { min: 0.0, max: 1.0 }).on("change", ({ value }) => { u_red_time = value; });
+      pane.addInput(PARAMS, "u_red_static", { min: 0.0, max: 255.0 }).on("change", ({ value }) => { u_red_static = value; });
+      pane.addInput(PARAMS, "u_green_x", { min: 0.0, max: 1.0 }).on("change", ({ value }) => { u_green_x = value; });
+      pane.addInput(PARAMS, "u_green_y", { min: 0.0, max: 1.0 }).on("change", ({ value }) => { u_green_y = value; });
+      pane.addInput(PARAMS, "u_green_time", { min: 0.0, max: 1.0 }).on("change", ({ value }) => { u_green_time = value; });
+      pane.addInput(PARAMS, "u_green_static", { min: 0.0, max: 255.0 }).on("change", ({ value }) => { u_green_static = value; });
+      pane.addInput(PARAMS, "u_blue_x", { min: 0.0, max: 1.0 }).on("change", ({ value }) => { u_blue_x = value; });
+      pane.addInput(PARAMS, "u_blue_y", { min: 0.0, max: 1.0 }).on("change", ({ value }) => { u_blue_y = value; });
+      pane.addInput(PARAMS, "u_blue_time", { min: 0.0, max: 1.0 }).on("change", ({ value }) => { u_blue_time = value; });
+      pane.addInput(PARAMS, "u_blue_static", { min: 0.0, max: 255.0 }).on("change", ({ value }) => { u_blue_static = value; });
     }
     paneAddInputs();
 
@@ -66,18 +94,36 @@ const setup = () => {
         3,
       ];
       uniLocation = [
-        gl.getUniformLocation(program, 'resolution'),
-        gl.getUniformLocation(program, 'time'),
-        gl.getUniformLocation(program, 'xScale'),
-        gl.getUniformLocation(program, 'yScale'),
-        gl.getUniformLocation(program, 'zScale'),
+        gl.getUniformLocation(program, "u_resolution"),
+        gl.getUniformLocation(program, "u_time"),
+        gl.getUniformLocation(program, "u_red_x"),
+        gl.getUniformLocation(program, "u_red_y"),
+        gl.getUniformLocation(program, "u_red_time"),
+        gl.getUniformLocation(program, "u_red_static"),
+        gl.getUniformLocation(program, "u_green_x"),
+        gl.getUniformLocation(program, "u_green_y"),
+        gl.getUniformLocation(program, "u_green_time"),
+        gl.getUniformLocation(program, "u_green_static"),
+        gl.getUniformLocation(program, "u_blue_x"),
+        gl.getUniformLocation(program, "u_blue_y"),
+        gl.getUniformLocation(program, "u_blue_time"),
+        gl.getUniformLocation(program, "u_blue_static"),
       ];
       uniType = [
-        'uniform2fv',
-        'uniform1f',
-        'uniform1f',
-        'uniform1f',
-        'uniform1f',
+        "uniform2fv",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
+        "uniform1f",
       ];
 
       position = [
@@ -107,7 +153,7 @@ const setup = () => {
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    utility.setUniform([[canvas.width, canvas.height], nowTime, xScale, yScale, zScale], uniLocation, uniType)
+    utility.setUniform([[canvas.width, canvas.height], nowTime, u_red_x, u_red_y, u_red_time, u_red_static, u_green_x, u_green_y, u_green_time, u_green_static, u_blue_x, u_blue_y, u_blue_time, u_blue_static], uniLocation, uniType)
     gl.drawElements(gl.TRIANGLES, index.length, gl.UNSIGNED_SHORT, 0);
 
     requestAnimationFrame(render);
