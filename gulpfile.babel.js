@@ -23,5 +23,5 @@ exports.build = gulp.series(
   clean,
   copy,
   gulp.parallel(pug, compileSass, bundleWebpack),
-  deploy
+  // deploy
 );
