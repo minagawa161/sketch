@@ -36,6 +36,10 @@ const webpackConfig = {
         // TypeScript をコンパイルする
         use: "ts-loader",
       },
+      {
+        test: /.(vert|frag|glsl)$/,
+        type: "asset/source",
+      },
     ],
   },
 };

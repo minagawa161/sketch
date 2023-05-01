@@ -13,7 +13,7 @@ const watch = () => {
   // ファイル監視 ＆ 自動リロード
   gulp.watch([config.src + "/**/*.pug"], gulp.series(pug, htmlValidate));
   gulp.watch([config.src + "/**/*.scss"], compileSass);
-  gulp.watch([config.src + "/**/*+(.js|.ts)"], bundleWebpack);
+  gulp.watch([config.src + "/**/*+(.js|.ts|.glsl)"], bundleWebpack);
   gulp.watch(
     [
       config.src + `/**/*+(.png|.jpeg|.jpg|.gif|.webp|.svg|.ico|.mp4|.pdf)`,
